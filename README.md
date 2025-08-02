@@ -28,6 +28,18 @@ This project is a touch-enabled frequency selector for WSPR bands, built using a
 
 ---
 
+## 🔌 Pin Connections
+
+| Device       | Function   | ESP32 Pin |
+|--------------|------------|-----------|
+| Si5351       | SDA        | GPIO 25   |
+| Si5351       | SCL        | GPIO 26   |
+| TFT Display  | (other pins) | configurable via `Platformio.ini` in `TFT_eSPI` |
+
+> Make sure to configure your TFT driver and pin mapping properly in `User_Setup.h` (or your custom setup file) for `TFT_eSPI`.
+
+---
+
 ## 📚 Libraries Used
 
 - [`TFT_eSPI`](https://github.com/Bodmer/TFT_eSPI)
