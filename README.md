@@ -32,7 +32,7 @@ This project is a touch-enabled frequency selector for WSPR bands, built using a
 - [`TFT_eSPI`](https://github.com/Bodmer/TFT_eSPI)
 - [`Si5351Arduino`](https://github.com/etherkit/Si5351Arduino)
 - [`PNGdec`](https://github.com/bitbank2/PNGdec)
-- Custom fonts: JetBrains Mono + HB9-style digits
+- Custom fonts: JetBrains Mono
 
 ---
 
@@ -40,12 +40,6 @@ This project is a touch-enabled frequency selector for WSPR bands, built using a
 
 - Buttons arranged in **2 columns** for optimal screen usage
 - Tap to select a band and instantly transmit on the corresponding WSPR frequency
-
----
-
-## 📷 Screenshot
-
-![Splash Screen](screenshot.png) <!-- Replace with actual image link if available -->
 
 ---
 
