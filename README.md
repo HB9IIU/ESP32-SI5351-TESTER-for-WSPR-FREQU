@@ -1,6 +1,7 @@
 # 📡 WSPR Frequency Tester for ESP32 + Si5351 + TFT
 
-> Publishing this app because my friend **Henryk** asked me to prepare it via an early WhatsApp message today 😄  
+> Publishing this app on the fly because my friend **Henryk** asked me to prepare it via an early WhatsApp message today 😄  
+> His plan is to develop a Power Amplifier driven by vapours of red beet cooking.  
 > Also, I have nothing clever to do this morning — and luckily the weather is bad,  
 > so my wife can't send me out to work in the garden
 
