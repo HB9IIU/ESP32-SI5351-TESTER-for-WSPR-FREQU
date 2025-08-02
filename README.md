@@ -1,70 +1,54 @@
-# ⚠️ Work in Progress
+# 📡 WSPR Frequency Tester for ESP32 + Si5351 + TFT
 
-> This project is currently under development. Features, layout, and functionality are subject to change.
+> Publishing this app because my friend **Henryk** asked me to prepare it via an early WhatsApp message today 😄  
+> Also, I have nothing clever to do this morning — and luckily the weather is bad,  
+> so my wife can't send me out to work in the garden
 
----
-
-## 🌐 ESP32 Solar Band Monitor
-
-This project uses an **ESP32 with TFT display** to fetch and visualize real-time **solar and HF propagation data** from [hamqsl.com](https://www.hamqsl.com/solarxml.php). It displays band conditions, geomagnetic data, and VHF propagation metrics on a touchscreen interface, with a built-in configuration portal for Wi-Fi setup.
+This project is a touch-enabled frequency selector for WSPR bands, built using an **ESP32**, **Si5351 clock generator**, and a **320×240 TFT display**. It allows you to quickly select and transmit on any standard WSPR frequency (160m to 6m, including 50 MHz) via CLK0 of the Si5351.
 
 ---
 
-### ✨ Features
+## ✨ Features
 
-- TFT display (e.g. ILI9488) with custom fonts and color-coded solar data
-- Real-time solar data fetched via XML over HTTP
-- Auto-refresh every 15 minutes
-- Touchscreen interface with multiple display pages:
-  - HF band conditions (day/night)
-  - Geophysical solar parameters (K, A index, flux, etc.)
-  - VHF conditions
-  - Intro/about screen
-- Captive portal for Wi-Fi configuration using QR code
-- Uses NTP for accurate time display (Local + UTC)
+- ✅ WSPR band selection (160m to 6m + 50 MHz)
+- 🎨 Clean touchscreen UI with 2-column button layout
+- 🖼️ PNG splash screen on startup
+- 🔄 Visual feedback for selected band and frequency
+- 📶 Si5351 output on CLK0 with maximum drive strength
 
 ---
 
-### 📦 Dependencies
+## 🛠️ Hardware Required
 
-- PlatformIO / Arduino with ESP32 support
-- Libraries:
-  - `ESPAsyncWebServer`
-  - `Preferences`
-  - `WiFi`
-  - `TFT_eSPI`
-  - `PNGdec`
-  - `tinyxml2`
-  - QR Code library
+- [x] ESP32 Dev Board (e.g., DevKitC)
+- [x] Si5351 I2C clock generator module
+- [x] 320×240 TFT display (e.g., ILI9341 / ILI9488)
+- [x] Optional: Backlight control via GPIO
 
 ---
 
-### 🛠️ Setup
+## 📚 Libraries Used
 
-1. Clone the repository.
-2. Configure `platformio.ini` with your display and ESP32 variant.
-3. Compile and upload via PlatformIO or Arduino IDE.
-
----
-
-### 🖼️ Screenshot
-
-![App Screenshot](./doc/ScreenShots/snapshot.png)
+- [`TFT_eSPI`](https://github.com/Bodmer/TFT_eSPI)
+- [`Si5351Arduino`](https://github.com/etherkit/Si5351Arduino)
+- [`PNGdec`](https://github.com/bitbank2/PNGdec)
+- Custom fonts: JetBrains Mono + HB9-style digits
 
 ---
 
-### 📡 Source of Solar Data
+## 🖱️ Touch Layout
 
-Data fetched from:
-
-- [https://www.hamqsl.com/solarxml.php](https://www.hamqsl.com/solarxml.php)  
-  by Dr. Paul Herrman, N0NBH
+- Buttons arranged in **2 columns** for optimal screen usage
+- Tap to select a band and instantly transmit on the corresponding WSPR frequency
 
 ---
 
-### 🛠️ License
+## 📷 Screenshot
 
-Non-commercial use only. Respect data source license at [hamqsl.com].
+![Splash Screen](screenshot.png) <!-- Replace with actual image link if available -->
 
 ---
 
+## 📝 License
+
+MIT License. Feel free to modify and use for your own amateur radio projects.
