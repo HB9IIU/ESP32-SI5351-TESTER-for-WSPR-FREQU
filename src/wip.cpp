@@ -51,7 +51,7 @@ void setup()
   displaySplashScreen();
   pinMode(TFT_BLP, OUTPUT);
   digitalWrite(TFT_BLP, HIGH);
-  delay(3000);
+  delay(2500);
 
   tft.fillScreen(TFT_BLACK);
   tft.setTextColor(TFT_GOLD, TFT_BLACK);
