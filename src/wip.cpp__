@@ -1,0 +1,92 @@
+#include <Wire.h>
+#include <si5351.h>
+#include <TFT_eSPI.h>
+#include <JetBrainsMono_Light13pt7b.h>
+#include <JetBrainsMono_Bold15pt7b.h>
+#include <JetBrainsMono_Bold11pt7b.h>
+
+// Pin definitions
+#define SI5351_SDA 25 // Si5351 I2C SDA
+#define SI5351_SCL 26 // Si5351 I2C SCL
+
+// Global instances
+TFT_eSPI tft = TFT_eSPI();
+Si5351 si5351;
+
+// Function to check if Si5351 module is present
+bool si5351CheckModule()
+{
+    return si5351.init(SI5351_CRYSTAL_LOAD_8PF, 25000000, 0);
+}
+
+// Set CLK0 frequency using float MHz input
+void setCLK0freqMHz(float freqMHz)
+{
+    uint64_t freq_hundredths_Hz = (uint64_t)(freqMHz * 1e8); // MHz → hundredths of Hz
+    si5351.init(SI5351_CRYSTAL_LOAD_8PF, 25000000, 0);
+
+    si5351.set_freq(freq_hundredths_Hz, SI5351_CLK0);
+    // Set maximum drive strength for CLK0
+    si5351.drive_strength(SI5351_CLK0, SI5351_DRIVE_8MA);
+
+    // Enable CLK0 (0 = enable, 1 = disable)
+    si5351.output_enable(SI5351_CLK0, 1);
+
+    // Apply changes
+    si5351.update_status();
+    Serial.print("CLK0 set to ");
+    Serial.print(freqMHz, 6);
+    Serial.println(" MHz");
+}
+
+void setup()
+{
+    Serial.begin(115200);
+    delay(1000);
+
+    // Backlight pin setup
+    pinMode(TFT_BLP, OUTPUT);
+    digitalWrite(TFT_BLP, HIGH); // Turn backlight ON
+
+    // Initialize TFT display
+    tft.init();
+    tft.setRotation(3); // Landscape orientation
+    tft.fillScreen(TFT_BLACK);
+    tft.setTextColor(TFT_GOLD, TFT_BLACK);
+    tft.setTextDatum(MC_DATUM); // Middle center alignment
+    tft.setFreeFont(&JetBrainsMono_Bold15pt7b);
+    tft.drawString("SI5351 Tester", tft.width() / 2, tft.height() / 2 / 2);
+
+    // Start I2C for Si5351
+    Wire.begin(SI5351_SDA, SI5351_SCL);
+
+    // Initialize Si5351
+    if (si5351CheckModule())
+    {
+
+        Serial.println("✅ Si5351 detected and initialized.");
+        tft.setFreeFont(&JetBrainsMono_Light13pt7b);
+        tft.setTextColor(TFT_GREEN, TFT_BLACK);
+        tft.drawCentreString("Si5351 FOUND!", tft.width() / 2, tft.height() / 4 * 3, 1);
+        setCLK0freqMHz(14.070);
+    }
+    else
+    {
+        Serial.println("❌ Si5351 not found on I2C bus.");
+        tft.setTextColor(TFT_RED, TFT_BLACK);
+        tft.setFreeFont(&JetBrainsMono_Light13pt7b);
+        tft.drawCentreString("Si5351 NOT FOUND!", tft.width() / 2, tft.height() / 4 * 3 - 20, 1);
+        tft.setTextColor(TFT_WHITE, TFT_BLACK);
+        tft.setFreeFont(&JetBrainsMono_Bold11pt7b);
+
+        tft.drawCentreString("SDA->25  SCL->26", tft.width() / 2, tft.height() / 4 * 3 + 10, 1);
+
+        while (1)
+            ; // Stop execution
+    }
+}
+
+void loop()
+{
+    // Nothing needed
+}
